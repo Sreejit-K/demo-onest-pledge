@@ -1,0 +1,665 @@
+{
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Sunbird registry and credential api (SunbirdRC)",
+        "title": "Sunbird Registry and Credential",
+        "version": "1.0.0"
+    },
+    "host": "localhost:8081",
+    "basePath": "/",
+    "paths": {
+        "/api/v1/Cause/{causeId}/livePledgedAmount": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "causeId",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "totalAmountPledged": {
+                                    "type": "integer",
+                                    "example": 3451
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Cause/getAllCauses": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/causeListResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Cause/submit": {
+            "post": {
+                "description": "Submit a Cause",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Cause"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CauseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Cause/{entityId}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "entityId",
+                        "in": "path",
+                        "description": "Id of the Cause",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cause"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Cause new update",
+                "parameters": [
+                    {
+                        "name": "entityId",
+                        "in": "path",
+                        "description": "Id of the Cause",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "quiz",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Cause"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cause"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Donor/{entityId}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "entityId",
+                        "in": "path",
+                        "description": "Id of the Donor",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Donor"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Donor new update",
+                "parameters": [
+                    {
+                        "name": "entityId",
+                        "in": "path",
+                        "description": "Id of the Donor",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Donor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Donor"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Donor": {
+            "post": {
+                "description": "Create new Donor",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Donor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Donor"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Donor/getAllPledges/{DonorId}": {
+            "post": {
+                "description": "Create new Donor",
+                "parameters": [
+                    {
+                        "name": "DonorId",
+                        "in": "path",
+                        "description": "Id of the Donor",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PledgeResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Donor/getMyVC/{PledgeId}": {
+            "post": {
+                "description": "Create new Donor",
+                "parameters": [
+                    {
+                        "name": "PledgeId",
+                        "in": "path",
+                        "description": "Id of the Donor",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns PDF",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Pledge/{entityId}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "entityId",
+                        "in": "path",
+                        "description": "Id of the Pledge",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pledge"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Pledge new update",
+                "parameters": [
+                    {
+                        "name": "entityId",
+                        "in": "path",
+                        "description": "Id of the Pledge",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Pledge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pledge"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Pledge": {
+            "post": {
+                "description": "Create new Pledge",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Pledge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Pledge"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Pledge/search": {
+            "post": {
+                "description": "Pledge search",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "offset": {
+                                    "type": "integer",
+                                    "format": "int32",
+                                    "default": 0
+                                },
+                                "limit": {
+                                    "type": "integer",
+                                    "format": "int32",
+                                    "default": 0
+                                },
+                                "filters": {
+                                    "type": "object",
+                                    "description": "Ex: (field_path): $.name",
+                                    "properties": {
+                                        "field_path": {
+                                            "type": "object",
+                                            "description": "operators can be gte, lte, contains, gt, lt, eq, between, or, startsWith, endsWith, notContains, notStartsWith, notEndsWith",
+                                            "properties": {
+                                                "operators": {
+                                                    "type": "string",
+                                                    "example": "name",
+                                                    "description": "Search searchField"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PledgeResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Donor/search": {
+            "post": {
+                "description": "Pedge search",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "offset": {
+                                    "type": "integer",
+                                    "format": "int32",
+                                    "default": 0
+                                },
+                                "limit": {
+                                    "type": "integer",
+                                    "format": "int32",
+                                    "default": 0
+                                },
+                                "filters": {
+                                    "type": "object",
+                                    "description": "Ex: (field_path): $.name",
+                                    "properties": {
+                                        "field_path": {
+                                            "type": "object",
+                                            "description": "operators can be gte, lte, contains, gt, lt, eq, between, or, startsWith, endsWith, notContains, notStartsWith, notEndsWith",
+                                            "properties": {
+                                                "operators": {
+                                                    "type": "string",
+                                                    "example": "name",
+                                                    "description": "Search searchField"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/DonorResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Cause": {
+            "type": "object",
+            "title": "The Cause Schema",
+            "required": [
+                "name",
+                "organisation"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "title": "Cause Name"
+                },
+                "description": {
+                    "type": "string",
+                    "title": "description"
+                },
+                "organisation": {
+                    "type": "string",
+                    "title": "description"
+                },
+                "causeType": {
+                    "type": "string",
+                    "title": "cause type"
+                },
+                "imageRef": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": [
+                            "str1",
+                            "str2",
+                            "str3"
+                        ]
+                    },
+                    "title": "imageRef"
+                },
+                "videoURL": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": [
+                            "str1",
+                            "str2",
+                            "str3"
+                        ]
+                    },
+                    "title": "VideoRef"
+                },
+                "amountPledged": {
+                    "type": "string",
+                    "title": "Amount Pledged"
+                },
+                "amountNeeded": {
+                    "type": "string",
+                    "title": "Amount Needed"
+                },
+                "pledgeCount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Donor": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "mobileNumber"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "mobileNumber": {
+                    "type": "string"
+                },
+                "organisation": {
+                    "type": "string"
+                },
+                "amountPledged": {
+                    "type": "string",
+                    "title": "Amount Needed"
+                },
+                "pledgeCount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Pledge": {
+            "type": "object",
+            "title": "The Pedge Schema",
+            "properties": {
+                "PledgeDetails": {
+                    "type": "object",
+                    "required": [
+                        "donorName",
+                        "email",
+                        "causeId",
+                        "donorId",
+                        "amountForPledge"
+                    ],
+                    "properties": {
+                        "donorName": {
+                            "type": "string"
+                        },
+                        "donorId": {
+                            "type": "string"
+                        },
+                        "causeId": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "mobileNumber": {
+                            "type": "string"
+                        },
+                        "donorOrganisation": {
+                            "type": "string"
+                        },
+                        "amountForPledge": {
+                            "type": "string"
+                        },
+                        "pledgeDate":{
+                            "type": "string"
+                        },
+                        "causeDetails": {
+                            "type": "object",
+                            "properties": {
+                                "causeId": {
+                                    "type": "string"
+                                },
+                                "causeName": {
+                                    "type": "string"
+                                },
+                                "causeType": {
+                                    "type": "string"
+                                },
+                                "organisation": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "SuccessResult": {
+            "type": "object",
+            "properties": {
+                "results": {
+                    "type": "object"
+                }
+            }
+        },
+        "CauseResponse": {
+            "type": "object",
+            "title": "The Cause Schema",
+            "required": [
+                "name,",
+                "organisation"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "title": "messageResponse"
+                },
+                "success": {
+                    "type": "string",
+                    "title": "messageResponse"
+                },
+                "causeUpdate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Cause"
+                    },
+                    "title": "imageRef"
+                }
+            }
+        },
+        "PledgeResponse": {
+            "type": "object",
+            "title": "The Pledge Schema",
+            "required": [
+                "name,",
+                "organisation"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "title": "messageResponse"
+                },
+                "success": {
+                    "type": "string",
+                    "title": "messageResponse"
+                },
+                "causeUpdate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Pledge"
+                    }
+                }
+            }
+        },
+        "DonorResponse": {
+            "type": "object",
+            "title": "The Donor Schema",
+            "required": [
+                "name,",
+                "organisation"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "title": "messageResponse"
+                },
+                "success": {
+                    "type": "string",
+                    "title": "messageResponse"
+                },
+                "causeUpdate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Cause"
+                    }
+                }
+            }
+        },
+        "causeListResponse": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Cause"
+            }
+        }
+    }
+}
